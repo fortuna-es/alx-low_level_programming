@@ -1,10 +1,10 @@
 #include <stdio.h>
 /**
- * main - main block
- * 
- * Return: 0
+ * main - Entry point
+ *
+ * Returrn: Always 0 (Success)
  */
-int main(0)
+int main(void)
 {
 	printf("with proper grammer, but the outcome is a piece of art,\n");
 	return (0);
