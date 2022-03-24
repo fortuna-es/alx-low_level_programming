@@ -1,78 +1,42 @@
 #include "main.h"
-
 /**
- * rev_string - reverse array
- * @n: integer params
- * Return: 0
+ * infinite_add - function that adds two numbers.
+ * @n1: Pointer to the first character of number 1
+ * @n2: Pointer to the first character of number 2
+ * @r: Buffer where to write the result
+ * @n: Buffer size
+ *
+ * Return: Pointer.
  */
-
-void rev_string(char *n)
+char *infinite_add(char *n1, char *n2, char *r, int n)
 {
-	int i = 0;
-	int j = 0;
-	char temp;
+	int len1 = 0, len2 = 0;
+	int add = 0;
+	int i = n - 2;
 
-	while (*(n + i) != '\0')
+
+	while (n1[len1 + 1] != 0)
+		len1++;
+	while (n2[len2 + 1] != 0)
+		len2++;
+	r[n - 1] = 0;
+
+	while (i >= 0 && (len1 >= 0 || len2 >= 0))
 	{
-		i++;
-	}
-	i--;
-
-	for (j = 0; j < i; j++, i--)
-	{
-		temp = *(n + j);
-		*(n + j) = *(n + i);
-		*(n + i) = temp;
-	}
-}
-
-/**
- * infinite_add - add 2 numbers together
- * @n1: text representation of 1st number to add
- * @n2: text representation of 2nd number to add
- * @r: pointer to buffer
- * @size_r: buffer size
- * Return: pointer to calling function
- */
-
-char *infinite_add(char *n1, char *n2, char *r, int size_r)
-{
-	int overflow = 0, i = 0, j = 0, digits = 0;
-	int val1 = 0, val2 = 0, temp_tot = 0;
-
-	while (*(n1 + i) != '\0')
-		i++;
-	while (*(n2 + j) != '\0')
-		j++;
-	i--;
-	j--;
-	if (j >= size_r || i >= size_r)
-		return (0);
-	while (j >= 0 || i >= 0 || overflow == 1)
-	{
-		if (i < 0)
-			val1 = 0;
-		else
-			val1 = *(n1 + i) - '0';
-		if (j < 0)
-			val2 = 0;
-		else
-			val2 = *(n2 + j) - '0';
-		temp_tot = val1 + val2 + overflow;
-		if (temp_tot >= 10)
-			overflow = 1;
-		else
-			overflow = 0;
-		if (digits >= (size_r - 1))
-			return (0);
-		*(r + digits) = (temp_tot % 10) + '0';
-		digits++;
-		j--;
+		add += (len1 < 0 ? '0' : n1[len1]) + (len2 < 0 ? '0' : n2[len2]);
+		add -= 2 * '0';
+		r[i] = add % 10 + '0';
+		add /= 10;
 		i--;
+		len1--;
+		len2--;
 	}
-	if (digits == size_r)
+
+	if ((i < len1 || i < len2) || (i < 0 && add))
 		return (0);
-	*(r + digits) = '\0';
-	rev_string(r);
-	return (r);
+
+	add ? r[i] = add + '0' : 1;
+	i += add ? 0 : 1;
+
+	return (r + i);
 }
