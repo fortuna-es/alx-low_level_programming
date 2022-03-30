@@ -33,3 +33,15 @@ int _sqrt(int x, int i)
 		return (_sqrt(x, i + 1));
 }
 
+/**
+ * hai - helper function, recursive steps taken
+ * @n: number given to original function is_prime_number
+ * @d: incrementer divisor
+ * Return: 0 if not prime, 1 if prime
+ */
+
+int hai(int n, int d)
+{
+	if (n % d == 0)
+		return (0);
+
